@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+app.use(bodyParser.json());
+
 const users = [
     {id: 1, name: 'user1'},
     {id: 2, name: 'user2'},
@@ -29,6 +31,19 @@ app.get('/api/users/:id', (req, res) => {
         if(u.id == parseInt(req.params.id)) return u;
     });
     res.send(user);
+});
+
+//POST 
+
+app.post('/api/users', (req, res) => {
+    const user = {
+        id: users.length + 1,
+        name: req.body.name
+    }
+
+    users.push(user);
+
+    res.send(users);
 });
 
 const port = process.env.PORT || 8080;
