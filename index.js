@@ -46,6 +46,19 @@ app.post('/api/users', (req, res) => {
     res.send(users);
 });
 
+//PUT 
+
+app.put('/api/users/:id', (req, res) => {
+    const user = users.find( u => {
+        if(u.id == parseInt(req.params.id)) return u;
+    });
+
+    user.name = req.body.name;
+
+    res.send(user);
+
+})
+
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => { console.log(`Serveur en écoute sur le port ${port}`)});
