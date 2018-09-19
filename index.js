@@ -57,7 +57,19 @@ app.put('/api/users/:id', (req, res) => {
 
     res.send(user);
 
-})
+});
+
+//DELETE 
+
+app.delete('/api/users/:id', (req, res) => {
+    const user = users.find( u => {
+        if(u.id == parseInt(req.params.id)) return u;
+    });
+
+    const index = users.indexOf(user);
+    users.splice(index, 1);
+    res.send(users);
+});
 
 const port = process.env.PORT || 8080;
 
