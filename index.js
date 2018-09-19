@@ -69,16 +69,31 @@ app.post('/api/users', (req, res) => {
 //PUT 
 
 app.put('/api/users/:id', (req, res) => {
-    const user = users.find( u => {
-        if(u.id == parseInt(req.params.id)) return u;
+    
+    const schema = Joi.object({
+        username: Joi.string().min(3).required()
     });
 
-    if(!user) res.status(404).send('User not found');
+    const result = Joi.validate(req.body, schema);
 
-    user.name = req.body.name;
+    if(result.error) {
 
-    res.send(user);
+        res.status(404).send(result.error.details[0].message);
 
+    } else {
+
+        const user = users.find( u => {
+            if(u.id == parseInt(req.params.id)) return u;
+        });
+    
+        if(!user) res.status(404).send('User not found');
+    
+        user.username = req.body.username;
+    
+        res.send(users);
+
+    }
+    
 });
 
 //DELETE 
