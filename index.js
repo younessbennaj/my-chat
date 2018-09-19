@@ -43,11 +43,7 @@ app.get('/api/users/:id', (req, res) => {
 
 app.post('/api/users', (req, res) => {
 
-    const schema = Joi.object({
-        username: Joi.string().min(3).required()
-    });
-
-    const result = Joi.validate(req.body, schema);
+    const result = validateUser(req.body);
 
     if(result.error) {
         res.status(404).send(result.error.details[0].message);
@@ -69,12 +65,8 @@ app.post('/api/users', (req, res) => {
 //PUT 
 
 app.put('/api/users/:id', (req, res) => {
-    
-    const schema = Joi.object({
-        username: Joi.string().min(3).required()
-    });
 
-    const result = Joi.validate(req.body, schema);
+    const result = validateUser(req.body);
 
     if(result.error) {
 
@@ -109,6 +101,18 @@ app.delete('/api/users/:id', (req, res) => {
     users.splice(index, 1);
     res.send(users);
 });
+
+function validateUser(user) {
+
+    const schema = Joi.object({
+        username: Joi.string().min(3).required()
+    });
+
+    const result = Joi.validate(user, schema);
+
+    return result;
+
+}
 
 const port = process.env.PORT || 8080;
 
