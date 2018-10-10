@@ -1,10 +1,17 @@
-//Let's build a chat
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
+//HTTP request logger middleware
+var morgan  = require('morgan')
+
 //Ensure validation of key information
 const Joi = require('joi');
+
+//Log http request only in developement env
+if(app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+}
 
 app.use(bodyParser.json());
 
