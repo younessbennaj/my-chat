@@ -1,3 +1,4 @@
+const debug = require('debug')('app:startup');
 const httpDebug = require('debug')('app:http');//Debug http request
 const formErrorDebug = require('debug')('app:form-error');//Debug form error 
 const config = require('config'); //Manage configuration settings
