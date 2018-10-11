@@ -1,12 +1,12 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const app = express();
-
+//Manage configuration settings
+const config = require("config");
 //HTTP request logger middleware
 var morgan  = require('morgan')
-
 //Ensure validation of key information
 const Joi = require('joi');
+const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
 
 //Log http request only in developement env
 if(app.get('env') === 'development') {
