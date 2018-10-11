@@ -10,6 +10,7 @@ const app = express();
 
 //Only in developement env
 if (app.get('env') === 'development') {
+    debug('Development Environnement');
     app.use(morgan('tiny'));
 }
 
